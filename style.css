@@ -12,27 +12,27 @@ body {
 article{
     max-width: 980px;
     margin: 0 auto;
-    padding: 0 1rem;
-    border-radius: 0.5rem;
+    padding: 0 16px;
+    border-radius: 8px;
     background-color: #000000;
     color: #fff;
 }
 
 header,
 footer {
-    padding: 1rem 0;
+    padding: 16px 0;
     background-color: #000;
     color: #fff;
 }
 
 h1 {
     margin: 0;
-    padding: 0.75rem 0;
+    padding: 12px 0;
     text-align: center;
 }
 
 main {
-    padding: 1.5rem 0;
+    padding: 24px 0;
 }
 
 p {
@@ -42,7 +42,7 @@ p {
 }
 
 figure {
-    margin: 1.5rem 0;
+    margin: 24px 0;
     text-align: center;
 }
 
@@ -58,7 +58,7 @@ figure img {
 table {
     max-width: 980px;
     width: 100%;
-    margin: 1.5rem auto;
+    margin: 24px auto;
     border-collapse: collapse;
     background: #fff;
     border-radius: 8px;
@@ -67,7 +67,7 @@ table {
 
 th,
 td {
-    padding: 0.75rem 1rem;
+    padding: 12px 16px;
     text-align: center;
     border-bottom: 1px solid #ddd;
 }
@@ -79,10 +79,6 @@ th {
     font-weight: 600;
 }
 
-tbody tr:nth-child(even) {
-    background-color: #f7f7f7;
-}
-
 tfoot td {
     background: #000;
     color: #fff;
@@ -91,8 +87,8 @@ tfoot td {
 
 aside{
     max-width: 980px;
-    margin: 1.5rem auto;
-    padding: 1rem;
+    margin: 24px auto;
+    padding: 16px;
 }
 
 a {
