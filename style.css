@@ -121,6 +121,15 @@ button:hover{
     color: #fff;
 }
 
+form {
+    max-width: 980px;
+    margin: 24px auto;
+    padding: 16px;
+    background-color: #000000;
+    border-radius: 8px;
+    color: #ddd;
+}
+
 button a {
     display: inline-block;
     width: 100%;
