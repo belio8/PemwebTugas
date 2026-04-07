@@ -14,8 +14,35 @@ const render = () => {
     `).join('') || '<p class="no-feedback">Belum ada feedback.</p>';
 };
 
+function feedbackValidate() {
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const feedback = form.feedback.value.trim();
+    const telephone = form.telephone.value.trim();
+    if (!name || !email || !feedback) {
+        alert('Semua field harus diisi!');
+        return false;
+    }
+    else if(name.length < 3) {
+        alert('Nama harus lebih dari 3 karakter!');
+        return false;
+    }
+    else if(!email.includes('@gmail.com')) {
+        alert('Email tidak valid!');
+        return false;
+    }
+    else if(telephone.length < 10 || !/^\d{10,15}$/.test(telephone)) {
+        alert('Nomor telepon tidak valid!');
+        return false;
+    }
+    return true;
+}
+
 form?.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (!feedbackValidate()) {
+        return;
+    }
     const list = JSON.parse(localStorage.getItem('assignedFeedback') || '[]');
     
     list.push({
