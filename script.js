@@ -31,7 +31,7 @@ function feedbackValidate() {
         alert('Email tidak valid!');
         return false;
     }
-    else if(telephone.length < 10 || !/^\d{10,15}$/.test(telephone)) {
+    else if(!/^\d{10,15}$/.test(telephone)) {
         alert('Nomor telepon tidak valid!');
         return false;
     }
