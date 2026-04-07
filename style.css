@@ -15,14 +15,14 @@ article{
     padding: 0 16px;
     border-radius: 8px;
     background-color: #000000;
-    color: #644b4b;
+    color: #bca4a4;
 }
 
 header,
 footer {
     padding: 16px 0;
     background-color: #000;
-    color: #644b4b;
+    color: #bca4a4;
 }
 
 h1 {
@@ -74,14 +74,14 @@ td {
 
 th {
     background-color: #000;
-    color: #644b4b;
+    color: #bca4a4;
     text-transform: uppercase;
     font-weight: 600;
 }
 
 tfoot td {
     background: #000;
-    color: #644b4b;
+    color: #bca4a4;
     font-weight: 600;
 }
 
@@ -92,7 +92,7 @@ aside{
 }
 
 a {
-    color: #000000;
+    color: #bca4a4;
     text-decoration: none;
 }
 
@@ -137,10 +137,11 @@ a:hover {
     align-items: flex-start;
     margin-bottom: 10px;
     gap: 10px;
+    color: #d4a574;
 }
 
 .feedback-name {
-    color: #d4a574;
+    color: #ffe5c9;
     font-size: 0.95em;
     font-weight: 600;
     word-break: break-word;

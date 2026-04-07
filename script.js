@@ -1,43 +1,33 @@
-const feedbackContainer = document.getElementById('feedbackContainer');
-const feedbackForm = document.getElementById('feedbackForm');
+const box = document.getElementById('feedbackContainer');
+const form = document.getElementById('feedbackForm');
 
-// Fungsi untuk merender list feedback
-const displayFeedback = () => {
-    const feedback = JSON.parse(localStorage.getItem('assignedFeedback')) || [];
-    
-    if (!feedback.length) {
-        feedbackContainer.innerHTML = '<p class="no-feedback">Belum ada feedback.</p>';
-        return;
-    }
-
-    feedbackContainer.innerHTML = '<h3>Feedback dari Pengguna:</h3>' + feedback.map(item => `
+const render = () => {
+    const data = JSON.parse(localStorage.getItem('assignedFeedback') || '[]');
+    box.innerHTML = data.map(f => `
         <div class="feedback-item">
             <div class="feedback-header">
-                <strong class="feedback-name">${item.from}</strong>
-                <span class="feedback-date">${new Date(item.date).toLocaleDateString('id-ID')}</span>
+                <strong class="feedback-name">${f.from} (${f.email})</strong>
+                <span class="feedback-date">${new Date(f.date).toLocaleDateString('id-ID')}</span>
             </div>
-            <p class="feedback-message">${item.message}</p>
+            <p class="feedback-message">${f.message}</p>
         </div>
-    `).join('');
+    `).join('') || '<p class="no-feedback">Belum ada feedback.</p>';
 };
 
-// Handle submit form
-feedbackForm?.addEventListener('submit', (e) => {
+form?.addEventListener('submit', (e) => {
     e.preventDefault();
+    const list = JSON.parse(localStorage.getItem('assignedFeedback') || '[]');
     
-    const newFeedback = {
-        from: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('feedback').value,
+    list.push({
+        from: form.name.value,
+        email: form.email.value,
+        message: form.feedback.value,
         date: new Date()
-    };
+    });
 
-    const feedback = JSON.parse(localStorage.getItem('assignedFeedback')) || [];
-    feedback.push(newFeedback);
-    localStorage.setItem('assignedFeedback', JSON.stringify(feedback));
-
-    feedbackForm.reset();
-    displayFeedback();
+    localStorage.setItem('assignedFeedback', JSON.stringify(list));
+    form.reset();
+    render();
 });
 
-displayFeedback();
+render();
