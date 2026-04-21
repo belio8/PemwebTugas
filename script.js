@@ -27,7 +27,7 @@ function feedbackValidate() {
         alert('Nama harus lebih dari 3 karakter!');
         return false;
     }
-    else if(!email.includes('@gmail.com')) {
+    else if(!email.includes('@') || !email.includes('.')) {
         alert('Email tidak valid!');
         return false;
     }
@@ -38,7 +38,7 @@ function feedbackValidate() {
     return true;
 }
 
-form?.addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!feedbackValidate()) {
         return;
