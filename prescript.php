@@ -1,3 +1,4 @@
+<?php include 'database.php';?>
 <!DOCTYPE html>
 <html lang="id">
     <head>
@@ -119,7 +120,7 @@
                     <li><a href="https://www.thecoverproject.net/view.php?cat_id=6&page=1&view=g">Cover Game</a></li>
                 </ul>
             </aside>
-            <form id="feedbackForm">
+            <form id="feedbackForm" action="tambah.php" method="POST">
                 <h3>Feedback</h3>
                 <label for="name">Nama:</label><br> 
                 <input type="text" id="name" name="name"><br>
@@ -139,7 +140,7 @@
 
         <footer>
             <h3>Contact</h3>
-            <button type="button" onclick="window.location='contact.html'">Contact Us</button>
+            <button type="button" onclick="window.location='contact.php'">Contact Us</button>
             <p>&copy; 2026 Top PS2 Games.</p>
         </footer>
     </body>

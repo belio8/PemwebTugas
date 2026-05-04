@@ -1,17 +1,30 @@
 const box = document.getElementById('feedbackContainer');
 const form = document.getElementById('feedbackForm');
 
-const render = () => {
-    const data = JSON.parse(localStorage.getItem('assignedFeedback') || '[]');
-    box.innerHTML = data.map(f => `
-        <div class="feedback-item">
-            <div class="feedback-header">
-                <strong class="feedback-name">${f.from} (${f.email})</strong>
-                <span class="feedback-date">${new Date(f.date).toLocaleDateString('id-ID')}</span>
+const render = async () => {
+    try {
+        // Memanggil file PHP yang baru kita buat
+        const response = await fetch('ambil_data.php');
+        const data = await response.json();
+
+        if (data.length === 0) {
+            box.innerHTML = '<p class="no-feedback">Belum ada feedback di database.</p>';
+            return;
+        }
+
+        box.innerHTML = data.map(f => `
+            <div class="feedback-item">
+                <div class="feedback-header">
+                    <strong class="feedback-name">${f.name} (${f.email})</strong>
+                    <span class="feedback-date">${f.created_at}</span>
+                </div>
+                <p class="feedback-message">${f.comment}</p>
             </div>
-            <p class="feedback-message">${f.message}</p>
-        </div>
-    `).join('') || '<p class="no-feedback">Belum ada feedback.</p>';
+        `).join('');
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        box.innerHTML = '<p class="no-feedback">Gagal memuat data dari database.</p>';
+    }
 };
 
 function feedbackValidate() {
@@ -38,23 +51,33 @@ function feedbackValidate() {
     return true;
 }
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!feedbackValidate()) {
-        return;
-    }
-    const list = JSON.parse(localStorage.getItem('assignedFeedback') || '[]');
-    
-    list.push({
-        from: form.name.value,
-        email: form.email.value,
-        message: form.feedback.value,
-        date: new Date()
-    });
+form.addEventListener('submit', async (e) => {
+    // 1. Selalu cegah form agar halaman TIDAK me-refresh
+    e.preventDefault(); 
 
-    localStorage.setItem('assignedFeedback', JSON.stringify(list));
-    form.reset();
-    render();
+    // 2. Lakukan validasi. Jika gagal, berhenti di sini.
+    if (!feedbackValidate()) return;
+
+    // 3. Kemas semua inputan form secara otomatis
+    const formData = new FormData(form);
+
+    try {
+        // 4. Kirim data ke tambah.php secara diam-diam (di latar belakang)
+        await fetch('tambah.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        // 5. Bersihkan form setelah sukses terkirim
+        form.reset();
+
+        // 6. Panggil fungsi render() untuk mengambil data terbaru dari database
+        render(); 
+        
+    } catch (error) {
+        alert('Terjadi kesalahan saat mengirim data ke server.');
+        console.error('Error:', error);
+    }
 });
 
 render();
