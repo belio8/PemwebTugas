@@ -123,13 +123,17 @@
             <form id="feedbackForm" action="tambah.php" method="POST">
                 <h3>Feedback</h3>
                 <label for="name">Nama:</label><br> 
-                <input type="text" id="name" name="name"><br>
+                <input type="text" id="name" name="name" value="<?php echo $_SESSION['user_name'] ?? ''; ?>"><br>
+
                 <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email" ><br>
+                <input type="email" id="email" name="email" value="<?php echo $_SESSION['user_email'] ?? ''; ?>"><br>
+
                 <label for="telephone">Telepon:</label><br>
-                <input type="tel" id="telephone" name="telephone"><br>
+                <input type="tel" id="telephone" name="telephone" value="<?php echo $_SESSION['user_tel'] ?? ''; ?>"><br>
+
                 <label for="feedback">Feedback:</label><br>
-                <textarea id="feedback" name="feedback" rows="4" cols="50" ></textarea><br><br>
+                <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br><br>
+                
                 <input type="submit" value="Submit">
             </form>
 

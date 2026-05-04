@@ -62,17 +62,28 @@ form.addEventListener('submit', async (e) => {
     const formData = new FormData(form);
 
     try {
-        // 4. Kirim data ke tambah.php secara diam-diam (di latar belakang)
-        await fetch('tambah.php', {
+        // 4. Kirim data ke tambah.php 
+        const response = await fetch('tambah.php', {
             method: 'POST',
             body: formData
         });
 
-        // 5. Bersihkan form setelah sukses terkirim
-        form.reset();
+        // Tangkap balasan dari PHP (ingat di tambah.php kita menulis echo "success")
+        const result = await response.text(); 
 
-        // 6. Panggil fungsi render() untuk mengambil data terbaru dari database
-        render(); 
+        if (result.trim() === "success") {
+            // Beritahu user bahwa data sukses masuk (karena halaman tidak refresh)
+            //alert("Data berhasil disimpan!");
+
+            // 5. PENTING: Jangan gunakan form.reset() karena akan menghapus semua isi form.
+            // Kita HANYA mengosongkan kolom komentar, biarkan Nama, Email, dan Telepon tetap terisi
+            form.feedback.value = '';
+
+            // 6. Panggil fungsi render() untuk mengambil data terbaru dari database
+            render(); 
+        } else {
+            alert("Gagal menyimpan data ke database.");
+        }
         
     } catch (error) {
         alert('Terjadi kesalahan saat mengirim data ke server.');
